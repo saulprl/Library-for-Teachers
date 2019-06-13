@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="236.0" prefWidth="540.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Controllers.File.ReturnBookController">
+  <children>
+    <TitledPane animated="false" collapsible="false" layoutX="0.0" layoutY="0.0" prefHeight="76.0" prefWidth="540.0" text="Filtro">
+      <content>
+        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+          <children>
+            <GridPane fx:id="gridPane" hgap="10.0" layoutX="0.0" layoutY="0.0" prefHeight="42.0" prefWidth="334.0" vgap="10.0">
+              <children>
+                <Label text="ID de profesor:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" />
+                <ComboBox fx:id="idComboBox" prefHeight="21.0" prefWidth="232.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                  <items>
+                    <FXCollections fx:factory="observableArrayList">
+                      <String fx:value="Item 1" />
+                      <String fx:value="Item 2" />
+                      <String fx:value="Item 3" />
+                    </FXCollections>
+                  </items>
+                </ComboBox>
+              </children>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="173.0" minWidth="10.0" prefWidth="104.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="244.0" minWidth="10.0" prefWidth="244.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="64.0" minHeight="10.0" prefHeight="38.0" vgrow="NEVER" />
+              </rowConstraints>
+            </GridPane>
+            <Button id="registerButton" fx:id="returnButton" layoutX="366.0" layoutY="11.0" mnemonicParsing="false" onAction="#returnButtonPressed" prefWidth="68.0" text="Devolver" />
+            <Button fx:id="cancelButton" layoutX="454.0" layoutY="11.0" mnemonicParsing="false" onAction="#cancelButtonPressed" prefWidth="68.0" text="Cancelar" />
+          </children>
+        </AnchorPane>
+      </content>
+    </TitledPane>
+    <TableView fx:id="tableView" layoutX="0.0" layoutY="76.0" prefHeight="160.0" prefWidth="540.0" />
+  </children>
+</AnchorPane>
