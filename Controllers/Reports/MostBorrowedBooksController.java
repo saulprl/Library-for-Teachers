@@ -1,7 +1,7 @@
 package Controllers.Reports;
 
 import Models.ConnectionMethods;
-import Models.TeachersFinedViewModel;
+import Models.MostBorrowedBooks;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,10 +14,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class HighestFinesController {
+public class MostBorrowedBooksController {
 
-    private static final String QUERY = "SELECT teacher_id, full_name, fine FROM fined_teachers_view" +
-            " ORDER BY fine DESC;";
+    private static final String QUERY = "SELECT * FROM most_borrowed_books_view;";
 
     @FXML
     private TableView tableView;
@@ -32,29 +31,29 @@ public class HighestFinesController {
         tableView.getColumns().clear();
 
         try {
-            ResultSet fined = ConnectionMethods.executeQuery(QUERY);
+            ResultSet items = ConnectionMethods.executeQuery(QUERY);
 
-            if (fined != null) {
-                ObservableList data = FXCollections.observableArrayList(dataBaseArrayList(fined));
+            if (items != null) {
+                ObservableList data = FXCollections.observableArrayList(dataBaseArrayList(items));
 
-                for (int i = 0; i < fined.getMetaData().getColumnCount(); i++) {
+                for (int i = 0; i < items.getMetaData().getColumnCount(); i++) {
                     TableColumn column = new TableColumn();
 
-                    switch (fined.getMetaData().getColumnName(i + 1)) {
-                        case "teacher_id":
-                            column.setText("ID");
+                    switch (items.getMetaData().getColumnName(i + 1)) {
+                        case "isbn":
+                            column.setText("ISBN");
                             break;
-                        case "full_name":
-                            column.setText("Nombre");
+                        case "book_title":
+                            column.setText("Título");
                             break;
-                        case "fine":
-                            column.setText("Multa");
+                        case "times_borrowed":
+                            column.setText("Préstamos");
                             break;
                         default:
-                            column.setText(fined.getMetaData().getColumnName(i + 1));
+                            column.setText(items.getMetaData().getColumnName(i + 1));
                     }
 
-                    column.setCellValueFactory(new PropertyValueFactory<>(fined.getMetaData().getColumnName(i + 1)));
+                    column.setCellValueFactory(new PropertyValueFactory<>(items.getMetaData().getColumnName(i + 1)));
                     tableView.getColumns().add(column);
                 }
 
@@ -69,15 +68,15 @@ public class HighestFinesController {
         }
     }
 
-    private ArrayList<TeachersFinedViewModel> dataBaseArrayList(ResultSet resultSet) throws SQLException {
-        ArrayList<TeachersFinedViewModel> data = new ArrayList<>();
+    private ArrayList<MostBorrowedBooks> dataBaseArrayList(ResultSet resultSet) throws SQLException {
+        ArrayList<MostBorrowedBooks> data = new ArrayList<>();
 
         while (resultSet.next()) {
-            TeachersFinedViewModel item = new TeachersFinedViewModel();
+            MostBorrowedBooks item = new MostBorrowedBooks();
 
-            item.teacher_id.setValue(resultSet.getInt("teacher_id"));
-            item.full_name.setValue(resultSet.getString("full_name"));
-            item.fine.setValue(resultSet.getDouble("fine"));
+            item.isbn.setValue(resultSet.getString("isbn"));
+            item.book_title.setValue(resultSet.getString("book_title"));
+            item.times_borrowed.setValue(resultSet.getInt("times_borrowed"));
 
             data.add(item);
         }
