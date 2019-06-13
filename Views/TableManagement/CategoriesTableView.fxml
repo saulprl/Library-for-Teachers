@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="373.0" prefWidth="521.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Controllers.TableManagement.CategoriesTableController">
+  <children>
+    <TitledPane animated="false" collapsible="false" layoutX="0.0" layoutY="0.0" prefHeight="187.0" prefWidth="521.0" text="Registro">
+      <content>
+        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+          <children>
+            <GridPane id="GridPane" fx:id="gridPane" hgap="10.0" layoutX="12.0" layoutY="0.0" prefHeight="161.0" prefWidth="507.0" vgap="10.0">
+              <children>
+                <Label text="Categoría:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0">
+                  <GridPane.margin>
+                    <Insets />
+                  </GridPane.margin>
+                </Label>
+                <TextField fx:id="categoryTextField" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Label text="Descripción:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                <TextField fx:id="descriptionTextField" prefWidth="163.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Button fx:id="registerButton" mnemonicParsing="false" onAction="#registerButtonPressed" prefWidth="71.0" text="Registrar" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                <Button fx:id="updateButton" mnemonicParsing="false" onAction="#updateButtonPressed" text="Modificar" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteButtonPressed" prefWidth="71.0" text="Eliminar" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearButtonPressed" prefHeight="21.0" prefWidth="71.0" text="Limpiar" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+              </children>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="122.0" minWidth="10.0" prefWidth="70.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="319.0" minWidth="10.0" prefWidth="319.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="98.0" minWidth="10.0" prefWidth="98.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+          </children>
+        </AnchorPane>
+      </content>
+    </TitledPane>
+    <TableView fx:id="tableView" layoutX="0.0" layoutY="187.0" prefHeight="186.5" prefWidth="521.0" />
+  </children>
+</AnchorPane>

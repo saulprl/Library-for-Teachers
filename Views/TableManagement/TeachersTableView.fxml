@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="359.0" prefWidth="667.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Controllers.TableManagement.TeachersTableController">
+  <children>
+    <TitledPane animated="false" collapsible="false" layoutX="0.0" layoutY="0.0" prefHeight="180.0" prefWidth="667.0" text="Registro">
+      <content>
+        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+          <children>
+            <GridPane id="GridPane" fx:id="gridPane" hgap="10.0" layoutX="12.0" layoutY="-2.0" prefHeight="158.0" prefWidth="651.0" vgap="10.0">
+              <children>
+                <Label text="ID:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0">
+                  <GridPane.margin>
+                    <Insets />
+                  </GridPane.margin>
+                </Label>
+                <ComboBox fx:id="idComboBox" disable="true" prefHeight="21.0" prefWidth="170.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                  <items>
+                    <FXCollections fx:factory="observableArrayList"> </FXCollections>
+                  </items>
+                </ComboBox>
+                <Label text="Nombre:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                <TextField id="nameTextField" fx:id="nameTextField" prefWidth="163.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label text="Apellido:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                <TextField id="surTextField" fx:id="surTextField" prefWidth="163.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Label text="Dirección:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+                <TextField id="addressTextField" fx:id="addressTextField" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                <Label text="Telefono:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                <TextField fx:id="phoneTextField" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                <Label text="Correo electrónico:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                <TextField fx:id="emailTextField" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                <Button id="fetchButton" fx:id="registerButton" mnemonicParsing="false" onAction="#registerButtonPressed" prefWidth="71.0" text="Registrar" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                <Button fx:id="updateButton" mnemonicParsing="false" onAction="#updateButtonPressed" prefWidth="71.0" text="Modificar" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteButtonPressed" prefWidth="71.0" text="Eliminar" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearButtonPressed" prefWidth="71.0" text="Limpiar" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+              </children>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="89.0" minWidth="10.0" prefWidth="48.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="271.0" minWidth="10.0" prefWidth="160.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="271.0" minWidth="10.0" prefWidth="116.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="222.0" minWidth="10.0" prefWidth="207.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="80.0" minWidth="10.0" prefWidth="80.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+          </children>
+        </AnchorPane>
+      </content>
+    </TitledPane>
+    <TableView fx:id="tableView" layoutX="0.0" layoutY="180.0" prefHeight="179.5" prefWidth="667.0" />
+  </children>
+</AnchorPane>
