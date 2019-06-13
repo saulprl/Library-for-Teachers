@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.input.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="675.0" prefWidth="918.0" style="-fx-background-color: #4E4E4E;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Controllers.MainAppController">
+  <children>
+    <MenuBar fx:id="menuBar" layoutX="0.0" layoutY="0.0" useSystemMenuBar="true">
+      <menus>
+        <Menu mnemonicParsing="true" text="_Archivo" fx:id="fileMenu">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#newLoanButtonPressed" text="Nuevo préstamo" fx:id="newLoanButton" />
+            <MenuItem mnemonicParsing="false" onAction="#newBookButtonPressed" text="Nuevo libro" fx:id="newBookButton" />
+            <MenuItem mnemonicParsing="false" onAction="#newCategoryButtonPressed" text="Nueva categoría" fx:id="newCategoryButton" />
+            <MenuItem mnemonicParsing="false" onAction="#payFineButtonPressed" text="Pagar multa" fx:id="payFineButton" />
+            <MenuItem mnemonicParsing="false" onAction="#returnBookButtonPressed" text="Devolución" fx:id="returnBookButton" />
+            <SeparatorMenuItem />
+            <MenuItem mnemonicParsing="false" onAction="#quitButtonPressed" text="Salir" fx:id="quitButton">
+              <accelerator>
+                <KeyCodeCombination alt="DOWN" code="Q" control="UP" meta="UP" shift="UP" shortcut="UP" />
+              </accelerator>
+            </MenuItem>
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="true" text="_Consultas" fx:id="viewsMenu">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#byAuthorButtonPressed" text="Libros por autor" fx:id="byAuthorButton">
+              <accelerator>
+                <KeyCodeCombination alt="DOWN" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+              </accelerator>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" onAction="#byCategoryButtonPressed" text="Libros por categoría" fx:id="byCategoryButton">
+              <accelerator>
+                <KeyCodeCombination alt="DOWN" code="C" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+              </accelerator>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" onAction="#onLoanButtonPressed" text="Libros en préstamo" fx:id="onLoanButton">
+              <accelerator>
+                <KeyCodeCombination alt="DOWN" code="P" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+              </accelerator>
+            </MenuItem>
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" onAction="#teachersButtonPressed" text="Profesores con multa" fx:id="teachersButton">
+              <accelerator>
+                <KeyCodeCombination alt="DOWN" code="T" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+              </accelerator>
+            </MenuItem>
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="true" text="Control de _tablas" fx:id="adminMenu">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#booksTableButtonPressed" text="Tabla de libros" fx:id="booksTableButton">
+              <accelerator>
+                <KeyCodeCombination alt="DOWN" code="L" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+              </accelerator>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" onAction="#authorsTableButtonPressed" text="Tabla de autores" fx:id="authorsTableButton">
+              <accelerator>
+                <KeyCodeCombination alt="DOWN" code="W" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+              </accelerator>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" onAction="#categoriesTableButtonPressed" text="Tabla de categorías" fx:id="categoriesTableButton">
+              <accelerator>
+                <KeyCodeCombination alt="DOWN" code="B" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+              </accelerator>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" onAction="#teachersTableButtonPressed" text="Tabla de profesores" fx:id="teachersTableButton">
+              <accelerator>
+                <KeyCodeCombination alt="DOWN" code="F" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+              </accelerator>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" onAction="#byAuthorsTableButtonPressed" text="Relación de libros-autores" fx:id="byAuthorsTableButton" />
+            <MenuItem mnemonicParsing="false" onAction="#byCategoryTableButtonPressed" text="Relación de libros-categorías" fx:id="byCategoryTableButton" />
+            <MenuItem mnemonicParsing="false" onAction="#onLoanTableButtonPressed" text="Relación de libros-profesores" fx:id="onLoanTableButton" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Re_portes">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#mostBorrowedButtonPressed" text="Libros más prestados" fx:id="mostBorrowedButton" />
+            <MenuItem mnemonicParsing="false" onAction="#highestFinesButtonPressed" text="Multas" fx:id="highestFinesButton" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+  </children>
+</AnchorPane>

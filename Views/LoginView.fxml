@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="205.0" prefWidth="359.0" style="" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Controllers.LoginController">
+  <children>
+    <GridPane depthTest="INHERIT" hgap="10.0" layoutX="7.0" layoutY="63.0" prefHeight="86.0" prefWidth="345.0" vgap="10.0">
+      <children>
+        <Label alignment="CENTER" text="Nombre de usuario:" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0" />
+        <Label text="Contraseña:" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
+        <TextField fx:id="userTextField" prefWidth="200.0" promptText="Nombre de usuario" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <PasswordField fx:id="passTextField" prefWidth="200.0" promptText="Contraseña" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      </children>
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="179.0" minWidth="10.0" prefWidth="115.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="267.0" minWidth="10.0" prefWidth="220.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints maxHeight="38.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="38.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+    </GridPane>
+    <Separator cache="true" cacheHint="DEFAULT" layoutX="0.0" layoutY="60.0" prefWidth="359.0" style="" />
+    <Label layoutX="14.0" layoutY="28.0" text="Inicia sesión">
+      <font>
+        <Font size="18.0" />
+      </font>
+    </Label>
+    <Button fx:id="loginButton" defaultButton="true" layoutX="200.0" layoutY="176.0" mnemonicParsing="false" onAction="#loginButtonPressed" prefWidth="66.0" text="Login" />
+    <Button fx:id="cancelButton" cancelButton="true" layoutX="279.0" layoutY="176.0" mnemonicParsing="false" onAction="#cancelButtonPressed" text="Cancelar" />
+    <ImageView fx:id="imageView" fitHeight="32.0" fitWidth="32.0" layoutX="313.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
+  </children>
+</AnchorPane>
