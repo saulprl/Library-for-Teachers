@@ -13,8 +13,8 @@ import javafx.stage.Stage;
 
 public class LoginController {
 
-    private final String user = "phase";
-    private final String pass = "11297ss99ro230";
+    private final String user = "user"; // App user.
+    private final String pass = "pass"; // App password.
 
     @FXML
     private TextField userTextField;
@@ -37,12 +37,12 @@ public class LoginController {
         String pass = passTextField.getText();
 
         if (user.equals(this.user) && pass.equals(this.pass)) {
-            ConnectionMethods.user = "phase";
-            ConnectionMethods.pass = "passcross";
+            ConnectionMethods.user = "user"; // Database user.
+            ConnectionMethods.pass = "pass"; // Database password.
 
             Alert dialog = new Alert(Alert.AlertType.INFORMATION);
-            dialog.setTitle("Sesión iniciada");
-            dialog.setContentText("Ha iniciado sesión correctamente.");
+            dialog.setTitle("SesiÃ³n iniciada");
+            dialog.setContentText("Ha iniciado sesiÃ³n correctamente.");
             dialog.setHeaderText(null);
             dialog.showAndWait();
 
@@ -52,7 +52,7 @@ public class LoginController {
         } else {
 
             Alert dialog = new Alert(Alert.AlertType.ERROR);
-            dialog.setTitle("Error de inicio de sesión");
+            dialog.setTitle("Error de inicio de sesiÃ³n");
             dialog.setHeaderText(null);
             dialog.setContentText("Los datos son incorrectos.");
             dialog.showAndWait();
