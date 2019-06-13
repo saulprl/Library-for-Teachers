@@ -1,7 +1,7 @@
 package Controllers.Queries;
 
+import Models.BooksByCategoryViewModel;
 import Models.ConnectionMethods;
-import Models.OnLoanViewModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,30 +10,27 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
-import javafx.util.StringConverter;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class OnLoanController {
+public class ByCategoryController {
 
-    private static final String INITIALIZEQUERY = "SELECT * FROM books_on_loan_view;";
+    private static final String INITIALIZEQUERY = "SELECT * FROM books_by_category_view;";
     private static String query;
 
     @FXML
     private TextField titleTextField;
 
     @FXML
-    private TextField teacherTextField;
+    private ComboBox categoryComboBox;
 
     @FXML
     private TextField isbnTextField;
 
     @FXML
-    private DatePicker datePicker;
+    private TextField descriptionTextField;
 
     @FXML
     private Button fetchButton;
@@ -49,39 +46,43 @@ public class OnLoanController {
 
     @FXML
     private void fetchButtonPressed(ActionEvent event) {
-        if (!(titleTextField.getText().isEmpty() && isbnTextField.getText().isEmpty() &&
-                teacherTextField.getText().isEmpty() && datePicker.getValue() == null)) {
+        if (!(titleTextField.getText().isEmpty() && categoryComboBox.getValue() == null &&
+                isbnTextField.getText().isEmpty() && descriptionTextField.getText().isEmpty())) {
             String field = "";
             String parameter = "";
-            boolean date = false;
+            boolean category = false;
 
             for (Node node : gridPane.getChildren()) {
                 if (node instanceof TextField && !node.isDisabled()) {
                     if (node.getId().contains("title")) {
-                        field = "book_title";
                         parameter = titleTextField.getText();
+                        field = "book_title";
+                        break;
                     } else if (node.getId().contains("isbn")) {
-                        field = "isbn";
                         parameter = isbnTextField.getText();
+                        field = "isbn";
+                        break;
                     } else {
-                        field = "full_name";
-                        parameter = teacherTextField.getText();
+                        parameter = descriptionTextField.getText();
+                        field = "category_description";
+                        break;
                     }
-                } else if (node instanceof DatePicker) {
-                    field = "date_issued";
-                    parameter = datePicker.getValue().toString();
-                    date = true;
+                } else if (node instanceof ComboBox && !node.isDisabled()) {
+                    parameter = categoryComboBox.getValue().toString();
+                    field = "category_name";
+                    category = true;
+                    break;
                 }
             }
 
-            if (date) {
-                query = String.format("SELECT * FROM books_on_loan_view WHERE %s = '%s';", field, parameter);
+            if (!category) {
+                query = String.format("SELECT * FROM books_by_category_view WHERE %s LIKE '%s%s%s';", field,
+                        "%", parameter, "%");
             } else {
-                query = String.format("SELECT * FROM books_on_loan_view WHERE %s LIKE '%s%s%s';",
-                        field, "%", parameter, "%");
+                query = String.format("SELECT * FROM books_by_category_view WHERE %s = '%s';", field, parameter);
             }
 
-            updateTable(query);
+            updateData(query);
         } else {
             Alert dialog = new Alert(Alert.AlertType.INFORMATION);
             dialog.setTitle("Parámetros de búsqueda");
@@ -94,15 +95,19 @@ public class OnLoanController {
     @FXML
     private void clearButtonPressed(ActionEvent event) {
         query = INITIALIZEQUERY;
-        updateTable(query);
+        updateData(query);
 
         for (Node node : gridPane.getChildren()) {
             node.setDisable(false);
 
             if (node instanceof TextField) {
                 ((TextField) node).clear();
-            } else if (node instanceof DatePicker) {
-                ((DatePicker) node).setValue(null);
+
+                if (node.getId().contains("description")) {
+                    ((TextField) node).setPromptText("Una palabra");
+                }
+            } else if (node instanceof ComboBox) {
+                ((ComboBox) node).setValue(null);
             }
         }
     }
@@ -110,11 +115,7 @@ public class OnLoanController {
     @FXML
     private void initialize() {
         query = INITIALIZEQUERY;
-        updateTable(query);
-
-        datePicker = new DatePicker();
-        datePicker.setPrefWidth(isbnTextField.getPrefWidth());
-        gridPane.add(datePicker, 3, 1);
+        updateData(query);
 
         titleTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.length() > 30) {
@@ -122,33 +123,25 @@ public class OnLoanController {
             }
 
             if (!newValue.isEmpty()) {
-                teacherTextField.setDisable(true);
+                categoryComboBox.setDisable(true);
                 isbnTextField.setDisable(true);
-                datePicker.setDisable(true);
+                descriptionTextField.setDisable(true);
             } else {
-                teacherTextField.setDisable(false);
+                categoryComboBox.setDisable(false);
                 isbnTextField.setDisable(false);
-                datePicker.setDisable(false);
+                descriptionTextField.setDisable(false);
             }
         });
 
-        teacherTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\w{0,20}([ ]\\w{0,20})?")) {
-                teacherTextField.setText(oldValue);
-            }
-
-            if (newValue.length() > 41) {
-                teacherTextField.setText(oldValue);
-            }
-
-            if (!newValue.isEmpty()) {
+        categoryComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
                 titleTextField.setDisable(true);
                 isbnTextField.setDisable(true);
-                datePicker.setDisable(true);
+                descriptionTextField.setDisable(true);
             } else {
                 titleTextField.setDisable(false);
                 isbnTextField.setDisable(false);
-                datePicker.setDisable(false);
+                descriptionTextField.setDisable(false);
             }
         });
 
@@ -159,53 +152,47 @@ public class OnLoanController {
 
             if (!newValue.isEmpty()) {
                 titleTextField.setDisable(true);
-                teacherTextField.setDisable(true);
-                datePicker.setDisable(true);
+                categoryComboBox.setDisable(true);
+                descriptionTextField.setDisable(true);
             } else {
                 titleTextField.setDisable(false);
-                teacherTextField.setDisable(false);
-                datePicker.setDisable(false);
+                categoryComboBox.setDisable(false);
+                descriptionTextField.setDisable(false);
             }
         });
 
-        datePicker.valueProperty().addListener((observable) -> {
-            if (datePicker.getValue() != null) {
-                isbnTextField.setDisable(true);
-                teacherTextField.setDisable(true);
+        descriptionTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) {
+                descriptionTextField.setText(newValue.trim());
                 titleTextField.setDisable(true);
+                categoryComboBox.setDisable(true);
+                isbnTextField.setDisable(true);
             } else {
-                isbnTextField.setDisable(false);
-                teacherTextField.setDisable(false);
                 titleTextField.setDisable(false);
-            }
-        });
-
-        datePicker.setConverter(new StringConverter<>() {
-            private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-            @Override
-            public String toString(LocalDate localDate) {
-                if (localDate == null) return "";
-                return formatter.format(localDate);
-            }
-
-            @Override
-            public LocalDate fromString(String dateString) {
-                if (dateString == null || dateString.trim().isEmpty()) return null;
-                return LocalDate.parse(dateString, formatter);
+                categoryComboBox.setDisable(false);
+                isbnTextField.setDisable(false);
             }
         });
     }
 
-    private void updateTable(String sql) {
+    private void updateData(String sql) {
         tableView.getItems().clear();
         tableView.getColumns().clear();
+        categoryComboBox.getItems().clear();
 
         try {
             ResultSet resultSet = ConnectionMethods.executeQuery(sql);
 
             if (resultSet != null) {
+                while (resultSet.next()) {
+                    String categoryN = resultSet.getString("category_name");
+                    if (!categoryComboBox.getItems().contains(categoryN)) {
+                        categoryComboBox.getItems().add(categoryN);
+                    }
+                }
+                resultSet.beforeFirst();
                 ObservableList data = FXCollections.observableArrayList(dataBaseArrayList(resultSet));
+
 
                 for (int i = 0; i < resultSet.getMetaData().getColumnCount(); i++) {
                     TableColumn column = new TableColumn();
@@ -214,20 +201,14 @@ public class OnLoanController {
                         case "book_title":
                             column.setText("Título");
                             break;
+                        case "category_name":
+                            column.setText("Categoría");
+                            break;
+                        case "category_description":
+                            column.setText("Descripción");
+                            break;
                         case "isbn":
                             column.setText("ISBN");
-                            break;
-                        case "full_name":
-                            column.setText("Profesor");
-                            break;
-                        case "date_issued":
-                            column.setText("Fecha de préstamo");
-                            break;
-                        case "date_due":
-                            column.setText("Fecha de vencimiento");
-                            break;
-                        case "fine":
-                            column.setText("Multa");
                             break;
                         default:
                             column.setText(resultSet.getMetaData().getColumnName(i + 1));
@@ -251,18 +232,15 @@ public class OnLoanController {
         }
     }
 
-    private ArrayList<OnLoanViewModel> dataBaseArrayList(ResultSet resultSet) throws SQLException {
-        ArrayList<OnLoanViewModel> data = new ArrayList<>();
+    private ArrayList<BooksByCategoryViewModel> dataBaseArrayList(ResultSet resultSet) throws SQLException {
+        ArrayList<BooksByCategoryViewModel> data = new ArrayList<>();
 
         while (resultSet.next()) {
-            OnLoanViewModel item = new OnLoanViewModel();
-
+            BooksByCategoryViewModel item = new BooksByCategoryViewModel();
             item.book_title.setValue(resultSet.getString("book_title"));
+            item.category_name.setValue(resultSet.getString("category_name"));
+            item.category_description.setValue(resultSet.getString("category_description"));
             item.isbn.setValue(resultSet.getString("isbn"));
-            item.full_name.setValue(resultSet.getString("full_name"));
-            item.date_issued.setValue(resultSet.getObject("date_issued", LocalDate.class));
-            item.date_due.setValue(resultSet.getObject("date_due", LocalDate.class));
-            item.fine.setValue(resultSet.getDouble("fine"));
 
             data.add(item);
         }
